@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'in.sinsuren.profiler.mini'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+
+tasks.withType(Jar) {
+    manifest {
+        attributes(
+                'Agent-Class': 'in.sinsuren.profiler.mini.Main',
+                'Premain-Class': 'in.sinsuren.profiler.mini.Main',
+                'Can-Redefine-Classes': 'true',
+                'Can-Retransform-Classes': 'true'
+        )
+    }
+}
+
+shadowJar {
+    // This creates a fat JAR with all dependencies included
+    archiveClassifier.set('all') // Equivalent to jar-with-dependencies
+
+    // Optional: Customize the name
+    archiveFileName.set("${project.name}-${project.version}.jar")
+}
+
+jar {
+    manifest {
+        attributes(
+                'Agent-Class': 'me.bechberger.Main',
+                'Premain-Class': 'me.bechberger.Main',
+                'Can-Redefine-Classes': 'true',
+                'Can-Retransform-Classes': 'true'
+        )
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
