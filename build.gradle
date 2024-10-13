@@ -38,8 +38,8 @@ shadowJar {
 jar {
     manifest {
         attributes(
-                'Agent-Class': 'me.bechberger.Main',
-                'Premain-Class': 'me.bechberger.Main',
+                'Agent-Class': 'in.sinsuren.profiler.mini.Main',
+                'Premain-Class': 'in.sinsuren.profiler.mini.Main',
                 'Can-Redefine-Classes': 'true',
                 'Can-Retransform-Classes': 'true'
         )
